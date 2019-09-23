@@ -1,6 +1,14 @@
 FactoryBot.define do
   factory :note do
-    text { "MyString" }
-    project { nil }
+    title { 'Title' }
+    text { 'Text' }
+    project 
+  end
+
+  factory :user_note, parent: :note do
+    transient do
+      person { create(:user) }
+    end
+    association :project, factory: :user_project
   end
 end
