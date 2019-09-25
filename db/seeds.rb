@@ -5,3 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Plan.find_or_create_by(name: Plan.types[:basic])
+Plan.find_or_create_by(name: Plan.types[:pro])

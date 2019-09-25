@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 2019_09_16_200302) do
   create_table "notes", force: :cascade do |t|
     t.string "title", null: false
     t.string "text"
-    t.integer "position", null: false
     t.integer "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -33,7 +32,7 @@ ActiveRecord::Schema.define(version: 2019_09_16_200302) do
   end
 
   create_table "plans", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", null: false, default: 'basic'
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
