@@ -19,7 +19,7 @@ class MembershipsController < AuthorizedController
   end
 
   def destroy
-    @membership = authorize(Project.find(params[:id]))
+    @membership = authorize(Membership.find(params[:id]))
     @membership.destroy
     respond_to do |format|
       format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
