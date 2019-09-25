@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
-  has_many :notes
-  has_many :memberships
+  has_many :notes, dependent: :destroy
+  has_many :memberships, dependent: :destroy
 
   validates :name, presence: true
 end

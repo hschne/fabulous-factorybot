@@ -1,8 +1,7 @@
 class Plan < ApplicationRecord
-
-  enum type: {
+  enum name: {
     basic: 'basic',
     pro: 'pro'
   }
-  validates :name, uniqueness: true, inclusion: { in: types }
+  validates :name, uniqueness: true, inclusion: { in: names }
 end

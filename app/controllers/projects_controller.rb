@@ -10,7 +10,7 @@ class ProjectsController < AuthorizedController
   end
 
   def new
-    @project = authorize(Project.new(project_params))
+    @project = authorize(Project.new)
   end
 
   def edit
@@ -19,7 +19,10 @@ class ProjectsController < AuthorizedController
 
   def create
     @project = authorize(Project.new(project_params))
-    membership = Membership.new(user: current_user, project: @project, role: Membership::Role[:admin])
+    membership = Membership.new(user: current_user,
+                                project: @project,
+                                role: Membership.roles[:admin])
+    @project.memberships << membership
 
     respond_to do |format|
       if @project.save
