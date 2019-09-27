@@ -8,8 +8,8 @@ class NotePolicy < ApplicationPolicy
   end
 
   def update?
-    Membership.where(role: 'writer')
-      .or(where(role: 'admin'))
+    membership = Membership.admin
+      .or(Membership.writer)
       .find_by(user: user, project: record.project)
   end
 
@@ -27,7 +27,7 @@ class NotePolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.joins(:project, :membership).where(user: user)
+      scope.joins(project: :memberships).where(project: { memberships: { user: user } })
     end
   end
 end

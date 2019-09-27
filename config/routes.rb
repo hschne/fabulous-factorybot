@@ -7,7 +7,8 @@ Rails.application.routes.draw do
 
   resources :sessions, only: %i[new create destroy]
   resources :users
-  resources :memberships, only: %i[index new create destroy]
-  resources :notes
-  resources :projects
+  resources :projects, shallow: true do
+    resources :notes
+    resources :memberships, only: %i[index new create destroy]
+  end
 end

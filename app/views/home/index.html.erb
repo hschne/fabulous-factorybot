@@ -6,9 +6,10 @@
   <%= link_to 'Log In', login_path %>
 <% end %>
 
-
-<% if current_user %>
-  <%= link_to('Projects', projects_path)  %>
+<% if current_user %>s
+  <br>
+  <h1>Note Taking</h1>
+  <%= link_to('My Projects', projects_path) %>
 <% end %>
 
 

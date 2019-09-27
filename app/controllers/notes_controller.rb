@@ -1,8 +1,9 @@
 class NotesController < AuthorizedController
   before_action :set_note, only: %i[show edit update destroy]
+  before_action :set_project, only: %i[index new create]
 
   def index
-    @notes = policy_scope(Note)
+    @notes = policy_scope(Note.where(project: @project))
   end
 
   def show
@@ -10,7 +11,7 @@ class NotesController < AuthorizedController
   end
 
   def new
-    @note = authorize(Note.new(note_params))
+    @note = authorize(@project.notes.new)
   end
 
   def edit
@@ -18,7 +19,7 @@ class NotesController < AuthorizedController
   end
 
   def create
-    @note = authorize(Note.new(note_params))
+    @note = authorize(@project.notes.new(note_params))
 
     respond_to do |format|
       if @note.save
@@ -49,13 +50,15 @@ class NotesController < AuthorizedController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_note
     @note = Note.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  def set_project
+    @project = Project.find(params[:project_id])
+  end
+
   def note_params
-    params.require(:note).permit(:title, :text, :project_id)
+    params.require(:note).permit(:title, :text)
   end
 end
