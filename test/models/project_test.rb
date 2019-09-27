@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'project name must be present' do
+    project = build(:project, name: nil)
+
+    assert(project.invalid?)
+  end
 end

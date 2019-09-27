@@ -10,7 +10,7 @@ class MembershipPolicy < ApplicationPolicy
   def destroy?
     # Check if this user is an admin of the removed
     # memberships project
-    record.project
+    create? && record.project
       .memberships
       .admin
       .find_by(user: user)
