@@ -4,16 +4,16 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def new?
-    create?
-  end
-
-  def destroy?
     # Check if this user is an admin of the removed
     # memberships project
     create? && record.project
-      .memberships
-      .admin
-      .find_by(user: user)
+                 .memberships
+                 .admin
+                 .find_by(user: user)
+  end
+
+  def destroy?
+    create?
   end
 
   class Scope < Scope

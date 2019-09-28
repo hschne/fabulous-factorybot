@@ -8,5 +8,5 @@ class Membership < ApplicationRecord
   belongs_to :user
   belongs_to :project
 
-  validates :role, inclusion: { in: roles }, uniqueness: { scope: [:user, :project] }
+  validates :role, inclusion: { in: roles }, uniqueness: { scope: %i[user project] }
 end

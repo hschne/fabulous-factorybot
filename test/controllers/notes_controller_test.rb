@@ -2,47 +2,21 @@ require 'test_helper'
 
 class NotesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @note = notes(:one)
+    @password = 'password'
+    @user = create(:user, password: @password)
   end
 
-  test "should get index" do
-    get notes_url
-    assert_response :success
-  end
 
   test "should get new" do
-    get new_note_url
+    login
+    project = create(:project_for_user, user: @user)
+
+    get new_project_note_path(project_id: project.id)
     assert_response :success
   end
 
-  test "should create note" do
-    assert_difference('Note.count') do
-      post notes_url, params: { note: { project_id: @note.project_id, text: @note.text } }
-    end
-
-    assert_redirected_to note_url(Note.last)
+  def login(user: @user, password: @password)
+    post login_path(params: { email: user.email, password: password })
   end
 
-  test "should show note" do
-    get note_url(@note)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_note_url(@note)
-    assert_response :success
-  end
-
-  test "should update note" do
-    patch note_url(@note), params: { note: { project_id: @note.project_id, text: @note.text } }
-    assert_redirected_to note_url(@note)
-  end
-
-  test "should destroy note" do
-    assert_difference('Note.count', -1) do
-      delete note_url(@note)
-    end
-
-    assert_redirected_to notes_url
-  end
 end
