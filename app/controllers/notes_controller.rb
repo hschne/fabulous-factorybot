@@ -25,7 +25,7 @@ class NotesController < AuthorizedController
       if @note.save
         format.html { redirect_to @note, notice: 'Note was successfully created.' }
       else
-        format.html { render :new }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
@@ -36,15 +36,16 @@ class NotesController < AuthorizedController
       if @note.update(note_params)
         format.html { redirect_to @note, notice: 'Note was successfully updated.' }
       else
-        format.html { render :edit }
+        format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
+    authorize(@note)
     @note.destroy
     respond_to do |format|
-      format.html { redirect_to notes_url, notice: 'Note was successfully destroyed.' }
+      format.html { redirect_to project_notes_url(@note.project), notice: 'Note was successfully destroyed.' }
     end
   end
 

@@ -2,47 +2,63 @@ require 'test_helper'
 
 class ProjectsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @project = projects(:one)
+    @password = 'password'
+    @user = create(:user, password: @password)
+    login
   end
 
-  test "should get index" do
-    get projects_url
+  test 'index should return success' do
+    get projects_path
     assert_response :success
   end
 
-  test "should get new" do
-    get new_project_url
+  test 'show should return success' do
+    project = create(:project_for_user, user: @user)
+
+    get project_path(project)
+
     assert_response :success
   end
 
-  test "should create project" do
-    assert_difference('Project.count') do
-      post projects_url, params: { project: { description: @project.description, name: @project.name } }
-    end
+  test 'new should return success' do
+    get new_project_path
 
-    assert_redirected_to project_url(Project.last)
-  end
-
-  test "should show project" do
-    get project_url(@project)
     assert_response :success
   end
 
-  test "should get edit" do
-    get edit_project_url(@project)
+  test 'edit should return success' do
+    project = create(:project_for_user, user: @user)
+
+    get edit_project_path(project)
+
     assert_response :success
   end
 
-  test "should update project" do
-    patch project_url(@project), params: { project: { description: @project.description, name: @project.name } }
-    assert_redirected_to project_url(@project)
+  test 'create should return redirect' do
+    post projects_path(params: {
+      project: { name: 'name', description: 'description' }
+    })
+    assert_response :redirect
   end
 
-  test "should destroy project" do
-    assert_difference('Project.count', -1) do
-      delete project_url(@project)
-    end
+  test 'update should return redirect' do
+    project = create(:project_for_user, user: @user)
 
-    assert_redirected_to projects_url
+    put project_path(project, params: {
+      project: { name: 'name', description: 'description' }
+    })
+    assert_response :redirect
+  end
+
+  test 'destroy should return redirect' do
+    project = create(:project_for_user, user: @user)
+
+    delete project_path(project)
+
+    assert_response :redirect
+  end
+
+  def login(user: @user, password: @password)
+    post login_path(params: { email: user.email, password: password })
   end
 end
