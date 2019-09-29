@@ -1,24 +1,7 @@
-# README
+# Fabulous FactoryBot
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a sample project to demonstrate how FactoryBot can be utilzed for small Rails applications. 
 
-Things you may want to cover:
+Check out my posts [here](https://hschne.at/2019/09/22/fabulous-factorybot.html) and [here](https://hschne.at/2019/09/22/fabulous-factorybot-complex-factories-for-rails.html) for more information.
 
-* Ruby version
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
