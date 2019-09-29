@@ -16,7 +16,6 @@ FactoryBot.define do
     end
   end
 
-
   factory :project_for_user, parent: :project do
     transient do
       user { create(:user) }

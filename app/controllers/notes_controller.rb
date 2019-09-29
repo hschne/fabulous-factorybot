@@ -3,7 +3,7 @@ class NotesController < AuthorizedController
   before_action :set_project, only: %i[index new create]
 
   def index
-    @notes = policy_scope(Note.where(project: @project))
+    @notes = policy_scope(@project.notes)
   end
 
   def show
